@@ -52,4 +52,30 @@ public class Heap {
             } else break;
         }
     }
+    
+    /**
+     * Popping the front of the heap O(log(n))
+     * @return the integer of the popped element
+     */
+    public static int pop() {
+        return 0;
+    } 
+
+    /**
+     * This method will peak at the first element in the heap, returning the found value.
+     * Peeking at the front of the heap without removing the element O(1)
+     * @return found integer
+     */
+    public static int peak() {
+        return 0;
+    }
+
+    /**
+     * Getting the size of the heap O(1)
+     * @return size of the heap
+     */
+    public static int getSize() {
+        return heap.size();
+    }
+
 }
