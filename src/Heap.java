@@ -32,6 +32,11 @@ public class Heap {
         heap = new ArrayList<>();
     }
 
+    /**
+     * Helper method that swaps two elements in a heap
+     * @param a first element being swapped
+     * @param b second element being swapped
+     */
     private static void swap(int a, int b) {
         int index1 = heap.get(a);
         int index2 = heap.get(b);
@@ -40,6 +45,10 @@ public class Heap {
         heap.set(b, index1);
     }
 
+    /**
+     * Adds a new element to the end of the heap and bubbles up if necessary
+     * @param num new number to add to heap
+     */
     public void add(int num) {
         heap.add(num);
         int childIndex = heap.size() - 1;
