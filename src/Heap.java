@@ -25,13 +25,31 @@ import java.util.List;
  */
 public class Heap {
     // Instance fields
-    public List<Integer> heap;
+    public static List<Integer> heap;
 
     // Heap constructor
     public Heap() {
         heap = new ArrayList<>();
     }
 
-    
+    private static void swap(int a, int b) {
+        int index1 = heap.get(a);
+        int index2 = heap.get(b);
 
+        heap.set(a, index2);
+        heap.set(b, index1);
+    }
+
+    public void add(int num) {
+        heap.add(num);
+        int childIndex = heap.size() - 1;
+
+        while (childIndex > 0) {
+            int parentIndex = (childIndex - 1) / 2;
+            if (heap.get(parentIndex) > heap.get(childIndex)) {
+                swap(parentIndex, childIndex);
+                childIndex = parentIndex; 
+            } else break;
+        }
+    }
 }
