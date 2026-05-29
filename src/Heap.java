@@ -67,8 +67,46 @@ public class Heap {
      * @return the integer of the popped element
      */
     public static int pop() {
-        return 0;
-    } 
+        if (heap.size() <= 0) return -1;
+
+        // Save the root (minimum value) to return later
+        int min = heap.get(0);
+
+        // Overwrite the root with the last element, then remove the last slot
+        heap.set(0, heap.getLast());
+        heap.removeLast();
+
+        // Bubble down from the root to restore the min-heap property
+        int parentIndex = 0;
+
+        while (true) {
+            // Calculate the indices of the left and right children
+            int leftChild = 2 * parentIndex + 1;
+            int rightChild = 2 * parentIndex + 2;
+
+            // Assume the parent is the smallest until proven otherwise
+            int smallest = parentIndex;
+
+            // If the left child exists and is smaller, it becomes the candidate to swap
+            if (leftChild < heap.size() && heap.get(leftChild) < heap.get(smallest)) {
+                smallest = leftChild;
+            }
+
+            // If the right child exists and is smaller than the current candidate, it wins
+            if (rightChild < heap.size() && heap.get(rightChild) < heap.get(smallest)) {
+                smallest = rightChild;
+            }
+
+            // If neither child was smaller, the heap property is restored — stop bubbling
+            if (smallest == parentIndex) break;
+
+            // Swap the parent down into the smallest child's position and continue from there
+            swap(parentIndex, smallest);
+            parentIndex = smallest;
+        }
+
+        return min;
+    }
 
     /**
      * This method will peak at the first element in the heap, returning the found value.

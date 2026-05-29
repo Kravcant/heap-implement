@@ -1,4 +1,6 @@
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.Test;
 
 public class HeapTest {
@@ -135,5 +137,91 @@ public class HeapTest {
         heap.add(20);
         Heap.peak();
         assertEquals(2, Heap.getSize());
+    }
+
+    // pop method tests
+    @Test
+    public void testPopReturnsMinElement() {
+        heap.add(10);
+        heap.add(3);
+        heap.add(7);
+        assertEquals(3, Heap.pop());
+    }
+
+    @Test
+    public void testPopOnSingleElement() {
+        heap.add(42);
+        assertEquals(42, Heap.pop());
+    }
+
+    @Test
+    public void testPopOnEmptyHeapReturnsNegativeOne() {
+        assertEquals(-1, Heap.pop());
+    }
+
+    @Test
+    public void testPopRemovesElement() {
+        heap.add(5);
+        heap.add(1);
+        Heap.pop();
+        assertEquals(1, Heap.getSize());
+    }
+
+    @Test
+    public void testPopRestoresHeapOrder() {
+        heap.add(10);
+        heap.add(3);
+        heap.add(7);
+        Heap.pop();
+        assertEquals(7, Heap.peak());
+    }
+
+    @Test
+    public void testPopSequentiallyReturnsAscendingOrder() {
+        heap.add(5);
+        heap.add(2);
+        heap.add(8);
+        heap.add(1);
+        assertEquals(1, Heap.pop());
+        assertEquals(2, Heap.pop());
+        assertEquals(5, Heap.pop());
+        assertEquals(8, Heap.pop());
+    }
+
+    @Test
+    public void testPopWithDuplicates() {
+        heap.add(3);
+        heap.add(3);
+        heap.add(3);
+        assertEquals(3, Heap.pop());
+        assertEquals(2, Heap.getSize());
+    }
+
+    @Test
+    public void testPopDecreasesSize() {
+        heap.add(1);
+        heap.add(2);
+        heap.add(3);
+        Heap.pop();
+        assertEquals(2, Heap.getSize());
+    }
+
+    @Test
+    public void testPopUntilEmpty() {
+        heap.add(4);
+        heap.add(2);
+        Heap.pop();
+        Heap.pop();
+        assertEquals(0, Heap.getSize());
+    }
+
+    @Test
+    public void testPopAfterAddingInReverseOrder() {
+        heap.add(9);
+        heap.add(6);
+        heap.add(3);
+        assertEquals(3, Heap.pop());
+        assertEquals(6, Heap.pop());
+        assertEquals(9, Heap.pop());
     }
 }
