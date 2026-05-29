@@ -76,7 +76,8 @@ public class Heap {
      * @return found integer
      */
     public static int peak() {
-        return 0;
+        if (heap.size() <= 0) return -1;
+        return heap.getFirst();
     }
 
     /**
