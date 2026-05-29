@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 /**
  * A min-heap. 
  * 
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class Heap {
     // Instance fields
-    public static List<Integer> heap;
+    private List<Integer> heap;
 
     // Heap constructor
     public Heap() {
@@ -37,7 +38,7 @@ public class Heap {
      * @param a first element being swapped
      * @param b second element being swapped
      */
-    private static void swap(int a, int b) {
+    private void swap(int a, int b) {
         int index1 = heap.get(a);
         int index2 = heap.get(b);
 
@@ -66,41 +67,33 @@ public class Heap {
      * Popping the front of the heap O(log(n))
      * @return the integer of the popped element
      */
-    public static int pop() {
-        if (heap.size() <= 0) return -1;
+    public int pop() {
+        if (heap.size() <= 0) throw new NoSuchElementException("Heap is empty");
 
-        // Save the root (minimum value) to return later
         int min = heap.get(0);
 
-        // Overwrite the root with the last element, then remove the last slot
+        // Move last element to root and remove the last
         heap.set(0, heap.getLast());
         heap.removeLast();
 
-        // Bubble down from the root to restore the min-heap property
+        // Bubble down
         int parentIndex = 0;
 
         while (true) {
-            // Calculate the indices of the left and right children
             int leftChild = 2 * parentIndex + 1;
             int rightChild = 2 * parentIndex + 2;
-
-            // Assume the parent is the smallest until proven otherwise
             int smallest = parentIndex;
 
-            // If the left child exists and is smaller, it becomes the candidate to swap
             if (leftChild < heap.size() && heap.get(leftChild) < heap.get(smallest)) {
                 smallest = leftChild;
             }
 
-            // If the right child exists and is smaller than the current candidate, it wins
             if (rightChild < heap.size() && heap.get(rightChild) < heap.get(smallest)) {
                 smallest = rightChild;
             }
 
-            // If neither child was smaller, the heap property is restored — stop bubbling
             if (smallest == parentIndex) break;
 
-            // Swap the parent down into the smallest child's position and continue from there
             swap(parentIndex, smallest);
             parentIndex = smallest;
         }
@@ -113,8 +106,8 @@ public class Heap {
      * Peeking at the front of the heap without removing the element O(1)
      * @return found integer
      */
-    public static int peak() {
-        if (heap.size() <= 0) return -1;
+    public int peak() {
+        if (heap.size() <= 0) throw new NoSuchElementException("Heap is empty");
         return heap.getFirst();
     }
 
@@ -122,8 +115,16 @@ public class Heap {
      * Getting the size of the heap O(1)
      * @return size of the heap
      */
-    public static int getSize() {
+    public int getSize() {
         return heap.size();
+    }
+
+    /**
+     * Checking whether the heap is empty O(1)
+     * @return true if the heap is empty, false otherwise
+     */
+    public boolean isEmpty() {
+        return heap.size() == 0;
     }
 
 }

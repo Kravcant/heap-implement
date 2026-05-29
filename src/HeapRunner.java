@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -21,6 +22,7 @@ public class HeapRunner {
         Scanner scanner = new Scanner(System.in);
 
         // TODO: Construct your Heap here.
+        Heap minHeap = new Heap();
 
         System.out.println("=== Heap Tester ===");
 
@@ -40,21 +42,38 @@ public class HeapRunner {
                 }
  
                 // TODO: Call your "add" method on the heap, passing in 'value'.
+                minHeap.add(value);
+
                 // TODO: Print message letting user know value was added
+                System.out.println(value + " has been added!");
  
             } else if (choice.equals("p") || choice.equals("pop")) {
                 // TODO: Call your "pop" method and print the result.
                 // Properly handle the case of an empty heap!
+                try {
+                    int popped = minHeap.pop();
+                    System.out.println("Popped: " + popped);
+                } catch (NoSuchElementException e) {
+                    System.out.println("Cannot pop — the heap is empty!");
+                }
 
             } else if (choice.equals("k") || choice.equals("peek")) {
                 // TODO: Call your "peek" method and print the result
                 // Properly handle the case of an empty heap!
+                try {
+                    int peeked = minHeap.peak();
+                    System.out.println("Front of heap: " + peeked);
+                } catch (NoSuchElementException e) {
+                    System.out.println("Cannot peek — the heap is empty!");
+                }
 
             } else if (choice.equals("s") || choice.equals("size")) {
                 // TODO: Call your "size" method and print the result
+                System.out.println("Heap size: " + minHeap.getSize());
 
             } else if (choice.equals("e") || choice.equals("empty")) {
                 // TODO: Call your "isEmpty" method and print the result
+                System.out.println(minHeap.isEmpty());
 
             } else if (choice.equals("q") || choice.equals("quit")) {
                 break;
